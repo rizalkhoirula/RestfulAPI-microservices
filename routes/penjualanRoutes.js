@@ -1,15 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const Penjualan = require("../models/penjualan");
+const penjualanService = require("../services/penjualanService");
 
 
-router.get('/', async (req, res) => {
-    res.send("tes");
-});
 // Read all penjualan
-router.get("/penjualan", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    const penjualan = await Penjualan.findAll();
+    const penjualan = await penjualanService.getAllPenjualan();
     res.status(200).json(penjualan);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -17,10 +14,10 @@ router.get("/penjualan", async (req, res) => {
 });
 
 // Read single penjualan by ID
-router.get("/penjualan/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   const id = req.params.id;
   try {
-    const penjualan = await Penjualan.findByPk(id);
+    const penjualan = await penjualanService.getPenjualanById(id);
     if (penjualan) {
       res.status(200).json(penjualan);
     } else {
@@ -32,10 +29,10 @@ router.get("/penjualan/:id", async (req, res) => {
 });
 
 // Create new penjualan
-router.post("/penjualan", async (req, res) => {
+router.post("/", async (req, res) => {
   const { nama_produk, deskripsi, harga, image } = req.body;
   try {
-    const penjualan = await Penjualan.create({
+    const penjualan = await penjualanService.createPenjualan({
       nama_produk,
       deskripsi,
       harga,
@@ -48,14 +45,18 @@ router.post("/penjualan", async (req, res) => {
 });
 
 // Update penjualan by ID
-router.put("/penjualan/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   const id = req.params.id;
   const { nama_produk, deskripsi, harga, image } = req.body;
   try {
-    const penjualan = await Penjualan.findByPk(id);
+    const penjualan = await penjualanService.updatePenjualanById(id, {
+      nama_produk,
+      deskripsi,
+      harga,
+      image,
+    });
     if (penjualan) {
-      await penjualan.update({ nama_produk, deskripsi, harga, image });
-      res.status(200).json({ message: "Penjualan updated successfully" });
+      res.status(200).json(penjualan);
     } else {
       res.status(404).json({ message: "Penjualan not found" });
     }
@@ -65,15 +66,14 @@ router.put("/penjualan/:id", async (req, res) => {
 });
 
 // Delete penjualan by ID
-router.delete("/penjualan/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   const id = req.params.id;
   try {
-    const penjualan = await Penjualan.findByPk(id);
+    const penjualan = await penjualanService.deletePenjualanById(id);
     if (penjualan) {
-      await penjualan.destroy();
-      res.status(200).json({ message: "Penjualan deleted successfully" });
+      res.status(200).json({ message: "Data Penjualan deleted successfully" });
     } else {
-      res.status(404).json({ message: "Penjualan not found" });
+      res.status(404).json({ message: "Data Penjualan not found" });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });

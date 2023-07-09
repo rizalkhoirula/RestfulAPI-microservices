@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "dctklfcs",
+    "password": "UCNn5MyRqoaP70KqTCQdkza6B3IAlp_b",
+    "database": "dctklfcs",
+    "host": "otto.db.elephantsql.com",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "dctklfcs",
+    "password": "UCNn5MyRqoaP70KqTCQdkza6B3IAlp_b",
+    "database": "dctklfcs",
+    "host": "otto.db.elephantsql.com",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "dctklfcs",
+    "password": "UCNn5MyRqoaP70KqTCQdkza6B3IAlp_b",
+    "database": "dctklfcs",
+    "host": "otto.db.elephantsql.com",
+    "dialect": "postgres"
+  }
+}
