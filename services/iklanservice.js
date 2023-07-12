@@ -26,7 +26,7 @@ async function getIklanById(id) {
 async function createIklan(data) {
   try {
     const iklan = new Iklan(data);
-    await Iklan.create();
+    await iklan.save();
     return iklan;
   } catch (error) {
     throw new Error(error.message);
@@ -71,3 +71,4 @@ mongoose
     "mongodb+srv://rizal_be:CnL8eVMsswCVn10V@ascbetest.pugbkl5.mongodb.net/rizal_be?retryWrites=true&w=majority"
   )
   .then(() => console.log("Connected!"));
+
